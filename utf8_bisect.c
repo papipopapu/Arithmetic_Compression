@@ -6,7 +6,7 @@ static FILE *comp_file;
 static int cum_freq[n_symbols + 2]; 
 static int freq[n_symbols + 1];
 
-void compress_file(const char *in_filename, const char *out_filename) {
+void compress_file(char*in_filename, char*out_filename) {
     start_model();
     start_write_bit(out_filename);
     FILE *in_file = fopen(in_filename, "r");
@@ -23,7 +23,7 @@ void compress_file(const char *in_filename, const char *out_filename) {
     end_write_bit();
     fclose(in_file);
 }
-void decompress_file(const char *in_filename, const char *out_filename) {
+void decompress_file(char*in_filename, char*out_filename) {
     start_model();
     start_read_bit(in_filename);
     FILE *out_file = fopen(out_filename, "w");
@@ -105,7 +105,7 @@ void update_model(int symbol)
         cum_freq[i] += 1;
     }
 }
-void start_read_bit(const char *comp_filename)
+void start_read_bit(char*comp_filename)
 {
     comp_file = fopen(comp_filename, "rb");
     if (comp_file == NULL) {
@@ -114,7 +114,7 @@ void start_read_bit(const char *comp_filename)
     }
     free_bits = 8;
 }
-void start_write_bit(const char *comp_filename)
+void start_write_bit(char*comp_filename)
 {
     comp_file = fopen(comp_filename, "wb");
     if (comp_file == NULL) {
@@ -157,3 +157,4 @@ void write_bit(int bit)
     if (bit) buffer |= 0b10000000;
     free_bits--;
 }
+
