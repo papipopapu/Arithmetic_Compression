@@ -14,6 +14,9 @@
 #define freq_max_idx n_symbols
 #define freq_EOF_idx n_symbols
 
+void decompress_file(const char *in_filename, const char *out_filename);
+void compress_file(const char *in_filename, const char *out_filename);
+
 
 void encode_symbol(int symbol);
 int decode_symbol();
