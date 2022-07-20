@@ -5,7 +5,7 @@
 
 
 #define n_symbols 257 // 256 + 1 for EOF
-#define max_freq 16383 // 2*14 - 1
+#define max_freq 16383 
 #define MAX_ITER 100
 
 

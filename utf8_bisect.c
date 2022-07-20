@@ -48,9 +48,9 @@ void encode_symbol(int symbol)
     int iter = 0;
     top = cum_freq[symbol];
     bottom = cum_freq[symbol + 1];
-    while (!(high <= top && low >= bottom)) { // while symbol cum_freq interval isnt entirely contained between low and high [high, low]
+    while (!(high <= top && low >= bottom)) { 
         half = (high + low) / 2;
-        if (top - half >= half - bottom) { // if there is a bigger (or equal) chunk of the symbol cum_freq interval in the high half
+        if (top - half >= half - bottom) { 
             write_bit(1);
             low = half;
         }
