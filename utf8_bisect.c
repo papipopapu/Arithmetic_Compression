@@ -39,8 +39,7 @@ void decompress_file(char*in_filename, char*out_filename) {
     end_read_bit();
     fclose(out_file);
 }
-void encode_symbol(int symbol)
-{
+void encode_symbol(int symbol) {
     int high, low, top, bottom, half;
     high = cum_freq[0];
     low = 0;
@@ -61,15 +60,13 @@ void encode_symbol(int symbol)
     }
     update_model(symbol);
 }
-int search_symbol(int high, int low)
-{
+int search_symbol(int high, int low) {
     for (int i = 0; i < n_symbols; i++) {
         if (cum_freq[i] >= high && cum_freq[i + 1] <= low) return i;
         if (cum_freq[i + 1] < high) return -1;
     }
 }
-int decode_symbol()
-{
+int decode_symbol() {
     int high, low, half, symbol = -1;
     high = cum_freq[0]; low = 0;
     while (symbol < 0) {
@@ -82,16 +79,14 @@ int decode_symbol()
     return symbol;
 }
 
-void start_model()
-{
+void start_model() {
     cum_freq[n_symbols+1] = 0; cum_freq[n_symbols] = 1; freq[n_symbols] = 1;
     for (int i = n_symbols - 1; i >= 0; i--) {
         freq[i] = 1;
         cum_freq[i] = 1 + cum_freq[i + 1]; // first value is the biggest
     }
 }
-void update_model(int symbol)
-{
+void update_model(int symbol) {
     if (cum_freq[0] == max_freq) {
         freq[n_symbols] = (freq[n_symbols] + 1) / 2;
         cum_freq[n_symbols] = freq[n_symbols] + 0; // no need to update the last cum freq, since its 0
@@ -105,8 +100,7 @@ void update_model(int symbol)
         cum_freq[i] += 1;
     }
 }
-void start_read_bit(char*comp_filename)
-{
+void start_read_bit(char*comp_filename) {
     comp_file = fopen(comp_filename, "rb");
     if (comp_file == NULL) {
         printf("Error opening file %s\n", comp_filename);
@@ -114,8 +108,7 @@ void start_read_bit(char*comp_filename)
     }
     free_bits = 8;
 }
-void start_write_bit(char*comp_filename)
-{
+void start_write_bit(char*comp_filename) {
     comp_file = fopen(comp_filename, "wb");
     if (comp_file == NULL) {
         printf("Error opening file %s\n", comp_filename);
@@ -123,20 +116,17 @@ void start_write_bit(char*comp_filename)
     }
     free_bits = 8;
 }
-void end_write_bit()
-{
+void end_write_bit() {
     if (free_bits != 8) {
         buffer >>= free_bits;
         fputc(buffer, comp_file);
     }
     fclose(comp_file);
 }
-void end_read_bit()
-{
+void end_read_bit() {
     fclose(comp_file);
 }
-int read_bit()
-{
+int read_bit() {
     int bit;
     if (free_bits == 8) {
         free_bits = 0;
@@ -147,8 +137,7 @@ int read_bit()
     free_bits++;
     return bit;
 }
-void write_bit(int bit)
-{
+void write_bit(int bit) {
     if (free_bits == 0) {
         fputc(buffer, comp_file);
         free_bits = 8;
