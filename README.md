@@ -2,4 +2,5 @@
 
 Super small dynamic (no tables encoded) arithmetic compressor in C, no external dependencies.
 
-Not good enough to be usable (slow, not great compression ratio), but it works, its concies and it is theoritically very good.
+Not good enough to be usable (slow, not great compression ratio), but it works, its concies and it is theoretically very good. Contains
+alredy compiled program and src.
